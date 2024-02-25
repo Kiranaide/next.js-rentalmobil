@@ -3,9 +3,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function Page() {
+  async function handleSubmit() {
+    "use server";
+
+    const formData = {
+      namamobil: FormData.get("namamobil"),
+      keadaan: FormData.get("keadaan"),
+    };
+
+    try {
+      const response = await fetch("https://localhost:8080/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
-      <form className="space-y-8">
+      <form
+        className="space-y-8"
+        action={handleSubmit}>
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="namamobil">Nama Mobil</Label>
           <Input
