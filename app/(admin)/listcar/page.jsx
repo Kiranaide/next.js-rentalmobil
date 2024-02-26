@@ -1,4 +1,5 @@
-import fetchData from "@/api/Rental";
+"use client";
+import fetchData from "@/app/api/CarData";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,12 +10,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
-export default async function Page() {
-  const data = await fetchData();
+export default function Page() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const result = await fetchData();
+      setData(result);
+    }
+    getData();
+  }, []);
+
+  const router = useRouter();
   return (
     <div className="flex flex-col justify-center">
-      <Button variant="outline">Tambah Data</Button>
+      <Button
+        variant="outline"
+        onClick={() => router.push("/addcar")}>
+        Tambah Data
+      </Button>
       <Table>
         <TableCaption>Test Title</TableCaption>
         <TableHeader>
